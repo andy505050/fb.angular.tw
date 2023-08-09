@@ -1,17 +1,17 @@
 ﻿namespace FBAngularTW.ShortUrlLib.Middleware;
 
-public class UseShortUrlMiddleware : IMiddleware
+public class UseShortUrlMiddleware
 {
-    private readonly ShortUrlService _shortUrlService;
+    private readonly RequestDelegate _next;
 
-    public UseShortUrlMiddleware(ShortUrlService shortUrlService)
+    public UseShortUrlMiddleware(RequestDelegate next)
     {
-        _shortUrlService = shortUrlService;
+        _next = next;
     }
 
-    public Task InvokeAsync(HttpContext context, RequestDelegate next)
+    public Task InvokeAsync(HttpContext context, ShortUrlService shortUrlService)
     {
-        var url = _shortUrlService.GetUrl(context.Request.Host.Host);
+        var url = shortUrlService.GetUrl(context.Request.Host.Host);
         context.Response.Redirect(url);
         return Task.CompletedTask;
     }

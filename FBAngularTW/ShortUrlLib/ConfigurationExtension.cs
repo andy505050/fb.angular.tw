@@ -9,7 +9,6 @@ namespace FBAngularTW.ShortUrlLib
         {
             builder.Services.Configure<ShortUrlSetting>(builder.Configuration.GetSection(nameof(ShortUrlSetting)));
             builder.Services.AddSingleton<ShortUrlService>();
-            builder.Services.AddSingleton<UseShortUrlMiddleware>();
 
             return builder;
         }
